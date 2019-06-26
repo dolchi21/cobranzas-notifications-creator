@@ -13,5 +13,3 @@ app.get('/state', (req, res, next) => {
 app.use(require('./controllers/invoices'))
 
 module.exports = app
-
-app.listen(3000)

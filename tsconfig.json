@@ -4,11 +4,10 @@
         "module": "commonjs",
         "outDir": "dist",
         "allowJs": true,
-        "sourceMap": true
+        "sourceMap": false
     },
     "include": [
-        "./src/*.ts",
-        "src/*.js"
+        "./src/**/*"
     ],
     "exclude": [
         "node_modules"

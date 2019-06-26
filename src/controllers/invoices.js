@@ -42,7 +42,11 @@ router.get('/process/:client/invoices', (req, res, next) => Promise.resolve().th
     //const { codes, fields } = await loadClientData(db, client)
     const { codes, fields, template } = await loadClientDataInParallel(db, client)
 
-    const tasks = codes.map(code => invoicesQueue.add(() => InvoiceService.invoices(db, client, code)))
+    const tasks = codes.map(code =>
+        invoicesQueue.add(() =>
+            InvoiceService.invoices(db, client, code)
+        )
+    )
 
     const invoices = (await Promise.all(tasks)).reduce((sum, arr) => sum.concat(arr), [])
 
