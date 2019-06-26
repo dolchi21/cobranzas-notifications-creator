@@ -1,6 +1,5 @@
 //@ts-check
 import * as Sequelize from 'sequelize'
-const { BIGINT, BOOLEAN, STRING } = Sequelize
 
 interface ModelOptions {
     tableName?: string
@@ -17,35 +16,35 @@ export default (modelOptions?: ModelOptions) => {
         }
         const attributes: Sequelize.ModelAttributes = {
             ID: {
-                type: BIGINT,
+                type: Sequelize.BIGINT,
                 field: 'ID'
             },
             client: {
                 field: 'codigo_empresa',
-                type: STRING,
+                type: Sequelize.STRING,
                 primaryKey: true,
             },
             SuperId: {
-                type: BIGINT,
+                type: Sequelize.BIGINT,
                 primaryKey: true,
             },
             number: {
-                type: STRING,
+                type: Sequelize.STRING,
                 field: 'Campo2'
             },
-            Campo1: STRING,
-            Campo2: STRING,
-            Campo3: STRING,
-            Campo4: STRING,
-            Campo5: STRING,
-            Campo51: STRING,
+            Campo1: Sequelize.STRING,
+            Campo2: Sequelize.STRING,
+            Campo3: Sequelize.STRING,
+            Campo4: Sequelize.STRING,
+            Campo5: Sequelize.STRING,
+            Campo51: Sequelize.STRING,
             emailChecked: {
-                type: BOOLEAN,
+                type: Sequelize.BOOLEAN,
                 field: 'chequeadoEmail'
             }
         }
         const campos = new Array(51).fill(null).map((e, i) => ({
-            ['Campo' + (i + 1)]: STRING
+            ['Campo' + (i + 1)]: Sequelize.STRING
         })).reduce((sum, item) => Object.assign(sum, item), {})
         Object.assign(attributes, campos)
         Invoice.init(attributes, options)
