@@ -1,6 +1,7 @@
 //@ts-check
+const { BIGINT, BOOLEAN, STRING } = require('sequelize')
 module.exports = (modelOptions = {}) => {
-    return (sequelize, { BIGINT, BOOLEAN, STRING } = require('sequelize')) => {
+    return (sequelize) => {
         const options = {
             tableName: modelOptions.tableName || 'Empresa_Datos_FacturasTP',
             timestamps: false,

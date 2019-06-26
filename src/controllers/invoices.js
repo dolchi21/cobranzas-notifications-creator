@@ -4,7 +4,8 @@ const Queue = require('promise-queue')
 const R = require('rambda')
 
 const ModelCreators = {
-    Email: require('../models/emailToSend')
+    Email: require('../models/emailToSend').factory,
+    EmailHash: require('../models/emailHash').factory
 }
 const ClientService = require('../services/client')
 const InvoiceService = require('../services/invoice')
