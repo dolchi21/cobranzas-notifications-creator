@@ -8,6 +8,7 @@ const ModelCreators = {
 }
 const ClientService = require('../services/client')
 const InvoiceService = require('../services/invoice')
+const TemplateService = require('../services/template')
 
 const router = express.Router()
 
@@ -17,17 +18,20 @@ const invoicesQueue = new Queue(3)
 async function loadClientData(db, client) {
     return {
         fields: await ClientService.configFields(db, client, 'Empresa_Datos_Facturas'),
-        codes: await InvoiceService.companiesWithNews(db, client)
+        codes: await InvoiceService.companiesWithNews(db, client),
+        template: await TemplateService.template(db, 'ACT_FAC')
     }
 }
 async function loadClientDataInParallel(db, client) {
-    const [fields, codes] = await Promise.all([
+    const [fields, codes, template] = await Promise.all([
         ClientService.configFields(db, client, 'Empresa_Datos_Facturas'),
         InvoiceService.companiesWithNews(db, client),
+        TemplateService.template(db, 'ACT_FAC')
     ])
     return {
         fields,
         codes,
+        template,
     }
 }
 
@@ -36,7 +40,7 @@ router.get('/process/:client/invoices', (req, res, next) => Promise.resolve().th
     const { client } = req.params
 
     //const { codes, fields } = await loadClientData(db, client)
-    const { codes, fields } = await loadClientDataInParallel(db, client)
+    const { codes, fields, template } = await loadClientDataInParallel(db, client)
 
     const tasks = codes.map(code => invoicesQueue.add(() => InvoiceService.invoices(db, client, code)))
 
@@ -58,6 +62,7 @@ router.get('/process/:client/invoices', (req, res, next) => Promise.resolve().th
     )).map(i => i.get())
 
     res.json({
+        template,
         dbEmails,
         invoices,
         codes,
