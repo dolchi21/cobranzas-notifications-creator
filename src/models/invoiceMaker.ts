@@ -1,4 +1,3 @@
-//@ts-check
 import * as Sequelize from 'sequelize'
 
 interface ModelOptions {

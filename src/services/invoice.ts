@@ -1,4 +1,3 @@
-//@ts-check
 import * as Sequelize from 'sequelize'
 
 import * as ModelMaker from '../models/invoiceMaker'
@@ -21,7 +20,7 @@ export async function companiesWithNews(db: Sequelize.Sequelize, client: string)
     })
     return rs.map(({ code }) => code)
 }
-export async function invoices(db: Sequelize.Sequelize, client, code) {
+export async function invoices(db: Sequelize.Sequelize, client: string, code: string) {
     const Invoice = await clientInvoiceModel(db, client)
     return Invoice.findAll({
         where: {
