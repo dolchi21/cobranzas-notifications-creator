@@ -17,6 +17,7 @@
     "rambda": "^2.11.1",
     "redux": "^4.0.1",
     "sequelize": "^5.8.12",
-    "tedious": "^6.2.0"
+    "tedious": "^6.2.0",
+    "typescript": "^3.5.2"
   }
 }
