@@ -1,2 +1,2 @@
 //@ts-check
-module.exports = require('./invoiceMaker')()
+module.exports = require('./invoiceMaker').default()

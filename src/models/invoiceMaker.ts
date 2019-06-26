@@ -1,12 +1,21 @@
 //@ts-check
-const { BIGINT, BOOLEAN, STRING } = require('sequelize')
-module.exports = (modelOptions = {}) => {
-    return (sequelize) => {
-        const options = {
+import * as Sequelize from 'sequelize'
+const { BIGINT, BOOLEAN, STRING } = Sequelize
+
+interface ModelOptions {
+    tableName?: string
+}
+
+export default (modelOptions?: ModelOptions) => {
+    modelOptions = modelOptions || {}
+    return (sequelize: Sequelize.Sequelize) => {
+        class Invoice extends Sequelize.Model { }
+        const options: Sequelize.InitOptions = {
+            sequelize,
             tableName: modelOptions.tableName || 'Empresa_Datos_FacturasTP',
             timestamps: false,
         }
-        const Model = sequelize.define('Invoice', {
+        const attributes: Sequelize.ModelAttributes = {
             ID: {
                 type: BIGINT,
                 field: 'ID'
@@ -34,8 +43,12 @@ module.exports = (modelOptions = {}) => {
                 type: BOOLEAN,
                 field: 'chequeadoEmail'
             }
-        }, options)
-        Model.removeAttribute('id')
-        return Model
+        }
+        const campos = new Array(52).fill(null).map((e, i) => ({
+            ['Campo' + (i + 1)]: STRING
+        })).reduce((sum, item) => Object.assign(sum, item), {})
+        Object.assign(attributes, campos)
+        Invoice.init(attributes, options)
+        return Invoice
     }
 }
