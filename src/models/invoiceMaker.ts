@@ -44,7 +44,7 @@ export default (modelOptions?: ModelOptions) => {
                 field: 'chequeadoEmail'
             }
         }
-        const campos = new Array(52).fill(null).map((e, i) => ({
+        const campos = new Array(51).fill(null).map((e, i) => ({
             ['Campo' + (i + 1)]: STRING
         })).reduce((sum, item) => Object.assign(sum, item), {})
         Object.assign(attributes, campos)
