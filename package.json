@@ -12,6 +12,8 @@
   "dependencies": {
     "express": "^4.17.1",
     "knex": "^0.17.6",
+    "morgan": "^1.9.1",
+    "promise-queue": "^2.2.5",
     "redux": "^4.0.1",
     "sequelize": "^5.8.12",
     "tedious": "^6.2.0"
