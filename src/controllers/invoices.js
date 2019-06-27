@@ -41,7 +41,6 @@ router.get('/process/:client/invoices', (req, res, next) => Promise.resolve().th
     const { client } = req.params
 
     //const { codes, fields } = await loadClientData(db, client)
-    const invoices2 = await InvoiceService.invoices(db, 'SUL', '20342510044')
     const { codes, fields, template } = await loadClientDataInParallel(db, client)
 
     const tasks = codes.map(code =>
