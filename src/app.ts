@@ -1,15 +1,13 @@
-const express = require('express')
-const morgan = require('morgan')
-const app = express()
+import * as express from 'express'
+import * as morgan from 'morgan'
 
-const state = {}
+export const app = express()
 
 app.use(morgan('dev'))
 
+const state = {}
 app.get('/state', (req, res, next) => {
     res.json(state)
 })
 
 app.use(require('./controllers/invoices'))
-
-module.exports = app
